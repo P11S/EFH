@@ -22,7 +22,6 @@ def main_menu():
     while True:
         # Set backdrop
         screen.blit(backing.menu, (0, 0))
-
         menu_mouse_loc = pygame.mouse.get_pos()
 
         # All clickables (buttons) should be placed here
@@ -45,13 +44,23 @@ def main_menu():
 
 def mainroom():
     while True:
-        # menu specific code
+        # Set Backdrop
+        screen.blit(backing.mainroom, (0, 0))
+        menu_mouse_loc = pygame.mouse.get_pos()
+
+        TO_MENU_BUTTON = Button(sprites.any_to_menu, (screen_width - .03 * screen_width, .05 * screen_height))
+
+        for button in [TO_MENU_BUTTON]:
+            button.update(screen)
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if TO_MENU_BUTTON.check_input(menu_mouse_loc):
+                    main_menu()
 
-        screen.blit(backing.mainroom, (0, 0))
         pygame.display.flip()
         fps_clock.tick(fps)
 
