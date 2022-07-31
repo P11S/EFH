@@ -26,8 +26,9 @@ def main_menu():
 
         # All clickables (buttons) should be placed here
         PLAY_BUTTON = Button(sprites.menu_to_mainscreen, (0.5*screen_width, .66*screen_height))
+        SETTINGS_BUTTON = Button(sprites.menu_to_settings, (0.7*screen_width, .66*screen_height))
 
-        for button in [PLAY_BUTTON]:
+        for button in [PLAY_BUTTON, SETTINGS_BUTTON]:
             button.update(screen)
 
         for event in pygame.event.get():
@@ -37,6 +38,8 @@ def main_menu():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BUTTON.check_input(menu_mouse_loc):
                     mainroom()
+                if SETTINGS_BUTTON.check_input(menu_mouse_loc):
+                    settings()
 
         pygame.display.flip()
         fps_clock.tick(fps)
@@ -46,6 +49,29 @@ def mainroom():
     while True:
         # Set Backdrop
         screen.blit(backing.mainroom, (0, 0))
+        menu_mouse_loc = pygame.mouse.get_pos()
+
+        TO_MENU_BUTTON = Button(sprites.any_to_menu, (screen_width - .03 * screen_width, .05 * screen_height))
+
+        for button in [TO_MENU_BUTTON]:
+            button.update(screen)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if TO_MENU_BUTTON.check_input(menu_mouse_loc):
+                    main_menu()
+
+        pygame.display.flip()
+        fps_clock.tick(fps)
+
+
+def settings():
+    while True:
+        # Set Backdrop
+        screen.blit(backing.settings, (0, 0))
         menu_mouse_loc = pygame.mouse.get_pos()
 
         TO_MENU_BUTTON = Button(sprites.any_to_menu, (screen_width - .03 * screen_width, .05 * screen_height))
