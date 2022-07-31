@@ -22,6 +22,10 @@ class Backdrop:
         settings_png = pygame.image.load('visuals/Backdrops/EFH_settings.png')
         settings_png = pygame.transform.scale(settings_png, screen_dimensions)
         self.settings = settings_png
+        # Backdrop for the achievements screen
+        achievements_png = pygame.image.load('visuals/Backdrops/EFH_achievements.png')
+        achievements_png = pygame.transform.scale(achievements_png, screen_dimensions)
+        self.achievements = achievements_png
         # Backdrop for the stairwell
         stairs_png = pygame.image.load('visuals/Backdrops/EFH_stairs.png')
         stairs_png = pygame.transform.scale(stairs_png, screen_dimensions)
@@ -53,3 +57,7 @@ class Clickable:
         menu_to_settings_png = pygame.transform.scale(menu_to_settings_png,
                                                       tuple(i * 0.15 for i in screen_dimensions))
         self.menu_to_settings = menu_to_settings_png
+        menu_to_achievements_png = pygame.image.load('visuals/Sprites/to_achievements.png')
+        menu_to_achievements_png = pygame.transform.scale(menu_to_achievements_png,
+                                                          tuple(i * 0.15 for i in screen_dimensions))
+        self.menu_to_achievements = menu_to_achievements_png
