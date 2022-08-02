@@ -4,14 +4,12 @@ import pygame
 pygame.init()
 import visuals
 from button import *
-from colors import *
+from constants import *
 import random
 
 
 # Game screen
-screen_dimensions = (1100, 600)
-screen_width = screen_dimensions[0]
-screen_height = screen_dimensions[1]
+
 screen = pygame.display.set_mode(screen_dimensions)
 backing = visuals.Backdrop()
 sprites = visuals.Clickable()
@@ -76,14 +74,18 @@ def mainroom():
 
 
 def task1():
+    # play_blackjack = Play()
     while True:
         # menu specific code
         screen.blit(backing.task1, (0, 0))
         menu_mouse_loc = pygame.mouse.get_pos()
 
         TO_MAINROOM_BUTTON = Button(sprites.task_to_main, (.03 * screen_width, .05 * screen_height))
+        DEAL_BUTTON = Button(sprites.deal, (.25 * screen_width, .66 * screen_height))
+        HIT_BUTTON = Button(sprites.hit, (.5 * screen_width, .66 * screen_height))
+        STAND_BUTTON = Button(sprites.stand, (.75 * screen_width, .66 * screen_height))
 
-        for button in [TO_MAINROOM_BUTTON]:
+        for button in [TO_MAINROOM_BUTTON, DEAL_BUTTON, HIT_BUTTON, STAND_BUTTON]:
             button.update(screen)
 
         for event in pygame.event.get():

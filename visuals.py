@@ -1,4 +1,5 @@
 import pygame
+from constants import *
 
 screen_dimensions = (1100, 600)
 ratio = screen_dimensions[0] / screen_dimensions[1]
@@ -57,12 +58,12 @@ class Clickable:
         menu_to_settings_png = pygame.transform.scale(menu_to_settings_png,
                                                       tuple(i * 0.15 for i in screen_dimensions))
         self.menu_to_settings = menu_to_settings_png
-        self.any_to_menu = any_to_menu_png
         # Sprite for button with path MAINSCREEN -> TASK1
         task1_png = pygame.image.load('visuals/Sprites/task1.png')
         task1_png = pygame.transform.scale(task1_png,
                                            tuple(i * 0.15 for i in screen_dimensions))
         self.task1 = task1_png
+        # Sprite for the button with path MENU -> ACHIEVEMENTS
         menu_to_achievements_png = pygame.image.load('visuals/Sprites/to_achievements.png')
         menu_to_achievements_png = pygame.transform.scale(menu_to_achievements_png,
                                                           tuple(i * 0.15 for i in screen_dimensions))
@@ -72,3 +73,18 @@ class Clickable:
         task_to_main_png = pygame.transform.scale(task_to_main_png, (screen_dimensions[0] * .05,
                                                                      screen_dimensions[1] * .05 * ratio))
         self.task_to_main = task_to_main_png
+        # Sprite for the button DEAL
+        deal_png = pygame.image.load('visuals/Sprites/deal.png')
+        deal_png = pygame.transform.scale(deal_png,
+                                                          tuple(i * 0.15 for i in screen_dimensions))
+        self.deal = deal_png
+        # Sprite for the button HIT
+        hit_png = pygame.image.load('visuals/Sprites/hit.png')
+        hit_png = pygame.transform.scale(hit_png,
+                                          tuple(i * 0.15 for i in screen_dimensions))
+        self.hit = hit_png
+        # Sprite for the button STAND
+        stand_png = pygame.image.load('visuals/Sprites/stand.png')
+        stand_png = pygame.transform.scale(stand_png,
+                                          tuple(i * 0.15 for i in screen_dimensions))
+        self.stand = stand_png
