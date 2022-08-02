@@ -5,6 +5,7 @@ pygame.init()
 import visuals
 from button import *
 from colors import *
+import random
 
 
 # Game screen
@@ -55,8 +56,9 @@ def mainroom():
         menu_mouse_loc = pygame.mouse.get_pos()
 
         TO_MENU_BUTTON = Button(sprites.any_to_menu, (.03 * screen_width, .05 * screen_height))
+        TASK1_BUTTON = Button(sprites.task1, (0.5 * screen_width, .66 * screen_height))
 
-        for button in [TO_MENU_BUTTON]:
+        for button in [TO_MENU_BUTTON, TASK1_BUTTON]:
             button.update(screen)
 
         for event in pygame.event.get():
@@ -66,6 +68,31 @@ def mainroom():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if TO_MENU_BUTTON.check_input(menu_mouse_loc):
                     main_menu()
+                if TASK1_BUTTON.check_input(menu_mouse_loc):
+                    task1()
+
+        pygame.display.flip()
+        fps_clock.tick(fps)
+
+
+def task1():
+    while True:
+        # menu specific code
+        screen.blit(backing.task1, (0, 0))
+        menu_mouse_loc = pygame.mouse.get_pos()
+
+        TO_MAINROOM_BUTTON = Button(sprites.task_to_main, (.03 * screen_width, .05 * screen_height))
+
+        for button in [TO_MAINROOM_BUTTON]:
+            button.update(screen)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if TO_MAINROOM_BUTTON.check_input(menu_mouse_loc):
+                    mainroom()
 
         pygame.display.flip()
         fps_clock.tick(fps)
@@ -113,19 +140,6 @@ def achievements():
                 if TO_MENU_BUTTON.check_input(menu_mouse_loc):
                     main_menu()
 
-        pygame.display.flip()
-        fps_clock.tick(fps)
-
-
-def tasks():
-    while True:
-        # menu specific code
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-
-        screen.blit(backing.tasks, (0, 0))
         pygame.display.flip()
         fps_clock.tick(fps)
 

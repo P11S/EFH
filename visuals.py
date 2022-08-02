@@ -31,9 +31,9 @@ class Backdrop:
         stairs_png = pygame.transform.scale(stairs_png, screen_dimensions)
         self.stairs = stairs_png
         # Backdrop for the task rooms
-        tasks_png = pygame.image.load('visuals/Backdrops/EFH_tasks.png')
-        tasks_png = pygame.transform.scale(tasks_png, screen_dimensions)
-        self.tasks = tasks_png
+        task1_png = pygame.image.load('visuals/Backdrops/EFH_task1.png')
+        task1_png = pygame.transform.scale(task1_png, screen_dimensions)
+        self.task1 = task1_png
 
 
 class Clickable:
@@ -57,7 +57,18 @@ class Clickable:
         menu_to_settings_png = pygame.transform.scale(menu_to_settings_png,
                                                       tuple(i * 0.15 for i in screen_dimensions))
         self.menu_to_settings = menu_to_settings_png
+        self.any_to_menu = any_to_menu_png
+        # Sprite for button with path MAINSCREEN -> TASK1
+        task1_png = pygame.image.load('visuals/Sprites/task1.png')
+        task1_png = pygame.transform.scale(task1_png,
+                                           tuple(i * 0.15 for i in screen_dimensions))
+        self.task1 = task1_png
         menu_to_achievements_png = pygame.image.load('visuals/Sprites/to_achievements.png')
         menu_to_achievements_png = pygame.transform.scale(menu_to_achievements_png,
                                                           tuple(i * 0.15 for i in screen_dimensions))
         self.menu_to_achievements = menu_to_achievements_png
+        # Sprite for the button with path TASK -> MAIN GAME
+        task_to_main_png = pygame.image.load('visuals/Sprites/task_to_main.png')
+        task_to_main_png = pygame.transform.scale(task_to_main_png, (screen_dimensions[0] * .05,
+                                                                     screen_dimensions[1] * .05 * ratio))
+        self.task_to_main = task_to_main_png
