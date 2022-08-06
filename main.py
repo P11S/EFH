@@ -14,7 +14,7 @@ from lockbox import *
 fps = 30
 fps_clock = pygame.time.Clock()
 
-box_code = LockBox(10)
+box_code = LockBox(lock_nums)
 
 
 
@@ -100,6 +100,12 @@ def task1():
                     mainroom()
                 if DEAL_BUTTON.check_input(menu_mouse_loc):
                     play_blackjack.deal()
+                    if not play_blackjack.just_won:
+                        box_code.row1_keys[play_blackjack.loss_differential-1] = abs(
+                            box_code.row1_keys[play_blackjack.loss_differential-1]-1)
+                        box_code.row2_keys[play_blackjack.loss_differential - 1] = abs(
+                            box_code.row2_keys[play_blackjack.loss_differential - 1] - 1)
+                        print(play_blackjack.loss_differential)
                 if HIT_BUTTON.check_input(menu_mouse_loc):
                     try:
                         play_blackjack.hit()
@@ -114,6 +120,7 @@ def task1():
                     if play_blackjack.just_won:
                         play_blackjack.just_won = False
                         lockbox()
+
                     else:
                         pass
 

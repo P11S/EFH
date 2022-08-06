@@ -95,6 +95,7 @@ class Play:
         self.player = Hand()
         self.deck.shuffle()
         self.just_won = False
+        self.loss_differential = 0
 
     def blackjack(self):
         self.dealer.calc_hand()
@@ -120,6 +121,7 @@ class Play:
             black_jack("I win with BlackJack", (screen_width//2, screen_height//2), black)
             time.sleep(4)
             self.just_won = False
+            self.loss_differential = (self.dealer.value - self.player.value) % lock_nums
             self.play_or_exit()
 
         self.player.value = 0
@@ -179,6 +181,7 @@ class Play:
             game_finish("You Busted. I win", (screen_width//2, screen_height//2), black)
             time.sleep(4)
             self.just_won = False
+            self.loss_differential = (self.player.value - 21) % lock_nums
             self.play_or_exit()
 
         self.player.value = 0
@@ -203,6 +206,7 @@ class Play:
         elif self.player.value < self.dealer.value:
             game_finish("I Won!", (screen_width//2, screen_height//2), black)
             self.just_won = False
+            self.loss_differential = (self.dealer.value - self.player.value) % lock_nums
             time.sleep(4)
             self.play_or_exit()
         else:
@@ -216,7 +220,6 @@ class Play:
 
     def play_or_exit(self):
         # game_texts("Play again press Deal!", (screen_width//2, screen_height//2))
-
         self.player.value = 0
         self.dealer.value = 0
         self.deck = Deck()
