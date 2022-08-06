@@ -1,20 +1,21 @@
 # General setup / imports
-import sys
+
 import pygame
+
 pygame.init()
-import visuals
 from button import *
-from constants import *
-import random
-
-
+from blackjack_deck import *
+from lockbox import *
 # Game screen
 
-screen = pygame.display.set_mode(screen_dimensions)
-backing = visuals.Backdrop()
-sprites = visuals.Clickable()
+
+# backing = visuals.Backdrop()
+# sprites = visuals.Clickable()
 fps = 30
 fps_clock = pygame.time.Clock()
+
+box_code = LockBox(10)
+
 
 
 def main_menu():
@@ -24,8 +25,8 @@ def main_menu():
         menu_mouse_loc = pygame.mouse.get_pos()
 
         # All clickables (buttons) should be placed here
-        PLAY_BUTTON = Button(sprites.menu_to_mainscreen, (0.5*screen_width, .66*screen_height))
-        SETTINGS_BUTTON = Button(sprites.menu_to_settings, (0.7*screen_width, .66*screen_height))
+        PLAY_BUTTON = Button(sprites.menu_to_mainscreen, (0.5 * screen_width, .66 * screen_height))
+        SETTINGS_BUTTON = Button(sprites.menu_to_settings, (0.7 * screen_width, .66 * screen_height))
         ACHIEVEMENTS_BUTTON = Button(sprites.menu_to_achievements, (0.3 * screen_width, .66 * screen_height))
 
         for button in [PLAY_BUTTON, SETTINGS_BUTTON, ACHIEVEMENTS_BUTTON]:
@@ -74,18 +75,20 @@ def mainroom():
 
 
 def task1():
-    # play_blackjack = Play()
+    screen.blit(backing.task1, (0, 0))
+    play_blackjack = Play()
+
     while True:
         # menu specific code
-        screen.blit(backing.task1, (0, 0))
         menu_mouse_loc = pygame.mouse.get_pos()
 
         TO_MAINROOM_BUTTON = Button(sprites.task_to_main, (.03 * screen_width, .05 * screen_height))
         DEAL_BUTTON = Button(sprites.deal, (.25 * screen_width, .66 * screen_height))
         HIT_BUTTON = Button(sprites.hit, (.5 * screen_width, .66 * screen_height))
         STAND_BUTTON = Button(sprites.stand, (.75 * screen_width, .66 * screen_height))
+        LOCK_BUTTON = Button(sprites.lock, (.9 * screen_width, .5 * screen_height))
 
-        for button in [TO_MAINROOM_BUTTON, DEAL_BUTTON, HIT_BUTTON, STAND_BUTTON]:
+        for button in [TO_MAINROOM_BUTTON, DEAL_BUTTON, HIT_BUTTON, STAND_BUTTON, LOCK_BUTTON]:
             button.update(screen)
 
         for event in pygame.event.get():
@@ -95,6 +98,67 @@ def task1():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if TO_MAINROOM_BUTTON.check_input(menu_mouse_loc):
                     mainroom()
+                if DEAL_BUTTON.check_input(menu_mouse_loc):
+                    play_blackjack.deal()
+                if HIT_BUTTON.check_input(menu_mouse_loc):
+                    try:
+                        play_blackjack.hit()
+                    except:
+                        pass
+                if STAND_BUTTON.check_input(menu_mouse_loc):
+                    try:
+                        play_blackjack.stand()
+                    except:
+                        pass
+                if LOCK_BUTTON.check_input(menu_mouse_loc):
+                    if play_blackjack.just_won:
+                        play_blackjack.just_won = False
+                        lockbox()
+                    else:
+                        pass
+
+        pygame.display.flip()
+        fps_clock.tick(fps)
+
+
+def lockbox():
+    box_code.code_reached = 0
+    while True:
+        # Set Backdrop
+        screen.blit(backing.lockbox, (0, 0))
+        menu_mouse_loc = pygame.mouse.get_pos()
+
+        TO_TABLE_BUTTON = Button(sprites.box_to_table, (.03 * screen_width, .05 * screen_height))
+        for x in range(0, box_code.code_reached + 1):
+            box_code.row1_buttons[x].update(screen)
+
+        for y in range(0, box_code.code_reached + 1):
+            box_code.row2_buttons[y].update(screen)
+
+        for button in [TO_TABLE_BUTTON]:
+            button.update(screen)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if TO_TABLE_BUTTON.check_input(menu_mouse_loc):
+                    task1()
+                try:
+                    if box_code.row1_buttons[box_code.code_reached].check_input(menu_mouse_loc):
+                        if box_code.row1_keys[box_code.code_reached] == 0:
+                            task1()
+                        else:
+                            box_code.code_reached += 1
+                    if box_code.row2_buttons[box_code.code_reached].check_input(menu_mouse_loc):
+                        if box_code.row2_keys[box_code.code_reached] == 0:
+                            task1()
+                        else:
+                            box_code.code_reached += 1
+                except:
+                    print('game over!')
+                    main_menu()
 
         pygame.display.flip()
         fps_clock.tick(fps)

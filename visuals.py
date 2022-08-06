@@ -35,6 +35,10 @@ class Backdrop:
         task1_png = pygame.image.load('visuals/Backdrops/EFH_task1.png')
         task1_png = pygame.transform.scale(task1_png, screen_dimensions)
         self.task1 = task1_png
+        # Backdrop for the main menu
+        lockbox_png = pygame.image.load('visuals/Backdrops/EFH_lockbox.png')
+        lockbox_png = pygame.transform.scale(lockbox_png, screen_dimensions)
+        self.lockbox = lockbox_png
 
 
 class Clickable:
@@ -86,5 +90,20 @@ class Clickable:
         # Sprite for the button STAND
         stand_png = pygame.image.load('visuals/Sprites/stand.png')
         stand_png = pygame.transform.scale(stand_png,
-                                          tuple(i * 0.15 for i in screen_dimensions))
+                                           tuple(i * 0.15 for i in screen_dimensions))
         self.stand = stand_png
+        # Sprite for the lock box
+        lock_png = pygame.image.load('visuals/Sprites/lock.png')
+        lock_png = pygame.transform.scale(lock_png,
+                                           tuple(i * 0.15 for i in screen_dimensions))
+        self.lock = lock_png
+        # Sprite for the button with path LOCK BOX -> CARD TABLE
+        box_to_table_png = pygame.image.load('visuals/Sprites/box_to_table.png')
+        box_to_table_png = pygame.transform.scale(box_to_table_png,
+                                                  (screen_dimensions[0] * .05, screen_dimensions[1] * .05 * ratio))
+        self.box_to_table = box_to_table_png
+        # Sprite for the lock box buttons
+        box_button_png = pygame.image.load('visuals/Sprites/box_button.png')
+        box_button_png = pygame.transform.scale(box_button_png,
+                                                  tuple(i * 0.07 for i in screen_dimensions))
+        self.box_button = box_button_png
