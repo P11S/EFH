@@ -6,6 +6,7 @@ pygame.init()
 from button import *
 from blackjack_deck import *
 from lockbox import *
+
 # Game screen
 
 
@@ -14,8 +15,7 @@ from lockbox import *
 fps = 30
 fps_clock = pygame.time.Clock()
 
-box_code = LockBox(lock_nums)
-
+box_code = LockBox(10)
 
 
 def main_menu():
@@ -101,8 +101,8 @@ def task1():
                 if DEAL_BUTTON.check_input(menu_mouse_loc):
                     play_blackjack.deal()
                     if not play_blackjack.just_won:
-                        box_code.row1_keys[play_blackjack.loss_differential-1] = abs(
-                            box_code.row1_keys[play_blackjack.loss_differential-1]-1)
+                        box_code.row1_keys[play_blackjack.loss_differential - 1] = abs(
+                            box_code.row1_keys[play_blackjack.loss_differential - 1] - 1)
                         box_code.row2_keys[play_blackjack.loss_differential - 1] = abs(
                             box_code.row2_keys[play_blackjack.loss_differential - 1] - 1)
                         print(play_blackjack.loss_differential)
@@ -120,7 +120,6 @@ def task1():
                     if play_blackjack.just_won:
                         play_blackjack.just_won = False
                         lockbox()
-
                     else:
                         pass
 
