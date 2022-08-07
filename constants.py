@@ -3,6 +3,8 @@ import visuals
 
 backing = visuals.Backdrop()
 sprites = visuals.Clickable()
+code_nums = 10
+
 
 # SCREEN SIZES
 

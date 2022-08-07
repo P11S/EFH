@@ -15,7 +15,7 @@ from lockbox import *
 fps = 30
 fps_clock = pygame.time.Clock()
 
-box_code = LockBox(10)
+box_code = LockBox(code_nums)
 
 
 def main_menu():
@@ -77,6 +77,8 @@ def mainroom():
 def task1():
     screen.blit(backing.task1, (0, 0))
     play_blackjack = Play()
+    just_dealt = False
+
 
     while True:
         # menu specific code
@@ -98,26 +100,36 @@ def task1():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if TO_MAINROOM_BUTTON.check_input(menu_mouse_loc):
                     mainroom()
-                if DEAL_BUTTON.check_input(menu_mouse_loc):
+                if DEAL_BUTTON.check_input(menu_mouse_loc) and (not just_dealt or play_blackjack.just_blackjack):
                     play_blackjack.deal()
-                    if not play_blackjack.just_won:
-                        box_code.row1_keys[play_blackjack.loss_differential - 1] = abs(
-                            box_code.row1_keys[play_blackjack.loss_differential - 1] - 1)
-                        box_code.row2_keys[play_blackjack.loss_differential - 1] = abs(
-                            box_code.row2_keys[play_blackjack.loss_differential - 1] - 1)
-                        print(play_blackjack.loss_differential)
+                    just_dealt = True
+                    play_blackjack.just_blackjack = False
+
+                    if not play_blackjack.just_won and not play_blackjack.just_tied and play_blackjack.loss_differential != 0:
+                         try:
+                            box_code.row1_keys[play_blackjack.loss_differential - 1] = abs(
+                                box_code.row1_keys[play_blackjack.loss_differential - 1] - 1)
+                            box_code.row2_keys[play_blackjack.loss_differential - 1] = abs(
+                                box_code.row2_keys[play_blackjack.loss_differential - 1] - 1)
+                            print('Loss differential: ' +str(play_blackjack.loss_differential))
+                         except:
+                             pass
                 if HIT_BUTTON.check_input(menu_mouse_loc):
+                    just_dealt = False
                     try:
                         play_blackjack.hit()
                     except:
                         pass
                 if STAND_BUTTON.check_input(menu_mouse_loc):
+                    just_dealt = False
                     try:
                         play_blackjack.stand()
                     except:
                         pass
                 if LOCK_BUTTON.check_input(menu_mouse_loc):
+                    just_dealt = False
                     if play_blackjack.just_won:
+                        print(box_code.row1_keys)
                         play_blackjack.just_won = False
                         lockbox()
                     else:
@@ -136,10 +148,16 @@ def lockbox():
 
         TO_TABLE_BUTTON = Button(sprites.box_to_table, (.03 * screen_width, .05 * screen_height))
         for x in range(0, box_code.code_reached + 1):
-            box_code.row1_buttons[x].update(screen)
+            try:
+                box_code.row1_buttons[x].update(screen)
+            except:
+                pass
 
         for y in range(0, box_code.code_reached + 1):
-            box_code.row2_buttons[y].update(screen)
+            try:
+                box_code.row2_buttons[y].update(screen)
+            except:
+                pass
 
         for button in [TO_TABLE_BUTTON]:
             button.update(screen)

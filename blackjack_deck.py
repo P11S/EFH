@@ -95,10 +95,14 @@ class Play:
         self.player = Hand()
         self.deck.shuffle()
         self.just_won = False
+        self.just_tied = False
+        self.just_blackjack = False
+        self.loss_differential = 0
 
     def blackjack(self):
         self.dealer.calc_hand()
         self.player.calc_hand()
+        print(self.player.value)
         show_dealer_card = pygame.image.load('img/' + self.dealer.card_img[1] + '.png').convert()
         show_dealer_card = pygame.transform.scale(show_dealer_card,
                                                   tuple(i * 0.15 for i in screen_dimensions[::-1]))
@@ -108,19 +112,27 @@ class Play:
             black_jack("We tie with BlackJack", (screen_width//2, screen_height//2), black)
             time.sleep(4)
             self.just_won = False
+            self.just_tied = True
+            self.just_blackjack = True
             self.play_or_exit()
+            self.loss_differential = 0
         elif self.player.value == 21:
             screen.blit(show_dealer_card, (screen_width * .66, screen_height * .25))
             black_jack("You win with BlackJack", (screen_width//2, screen_height//2), black)
             self.just_won = True
+            self.just_tied = False
+            self.just_blackjack = True
             time.sleep(4)
-
+            self.loss_differential = 0
             self.play_or_exit()
         elif self.dealer.value == 21:
             screen.blit(show_dealer_card, (screen_width * .66, screen_height * .25))
             black_jack("I win with BlackJack", (screen_width//2, screen_height//2), black)
             time.sleep(4)
             self.just_won = False
+            self.just_tied = False
+            self.just_blackjack = True
+            self.loss_differential = (self.dealer.value - self.player.value) % code_nums
             self.play_or_exit()
 
         self.player.value = 0
@@ -156,15 +168,21 @@ class Play:
     def hit(self):
         self.player.add_card(self.deck.deal())
         self.player_card += 1
-        self.blackjack()
+        # self.blackjack()
 
         if self.player_card == 2:
+
             self.player.calc_hand()
             self.player.display_cards()
             player_card_3 = pygame.image.load('img/' + self.player.card_img[2] + '.png')
             player_card_3 = pygame.transform.scale(player_card_3,
                                                    tuple(i * 0.15 for i in screen_dimensions[::-1]))
             screen.blit(player_card_3, (screen_width * .75, screen_height * .75))
+
+            print('hello')
+            print(self.player.value)
+            self.player.value = 0
+            self.blackjack()
 
         if self.player_card == 3:
             self.player.calc_hand()
@@ -173,14 +191,18 @@ class Play:
             player_card_4 = pygame.transform.scale(player_card_4,
                                                    tuple(i * 0.15 for i in screen_dimensions[::-1]))
             screen.blit(player_card_4, (screen_width * .9, screen_height * .75))
-
+            self.player.value = 0
+            self.blackjack()
+        self.player.calc_hand()
         if self.player.value > 21:
             game_finish("You Busted. I win", (screen_width//2, screen_height//2), black)
             time.sleep(4)
             self.just_won = False
+            self.just_tied = False
+            self.loss_differential = (self.player.value - 21) % code_nums
             self.play_or_exit()
 
-        self.player.value = 0
+        # self.player.value = 0
 
         if self.player_card > 4:
             self.play_or_exit()
@@ -191,7 +213,7 @@ class Play:
         show_dealer_card = pygame.transform.scale(show_dealer_card,
                                                   tuple(i * 0.15 for i in screen_dimensions[::-1]))
         screen.blit(show_dealer_card, (screen_width * .66, screen_height * .25))
-        self.blackjack()
+        # self.blackjack()
         self.dealer.calc_hand()
         self.player.calc_hand()
 
@@ -199,15 +221,19 @@ class Play:
             game_finish("You Won!", (screen_width//2, screen_height//2), black)
             time.sleep(4)
             self.just_won = True
+            self.just_tied = False
             self.play_or_exit()
         elif self.player.value < self.dealer.value:
             game_finish("I Won!", (screen_width//2, screen_height//2), black)
+            self.loss_differential = (self.dealer.value - self.player.value) % code_nums
             self.just_won = False
+            self.just_tied = False
             time.sleep(4)
             self.play_or_exit()
         else:
             game_finish("We tie", (screen_width//2, screen_height//2), black)
             self.just_won = False
+            self.just_tied = True
             time.sleep(4)
             self.play_or_exit()
 
