@@ -113,8 +113,9 @@ class Play:
         elif self.player.value == 21:
             screen.blit(show_dealer_card, (screen_width * .66, screen_height * .25))
             black_jack("You win with BlackJack", (screen_width//2, screen_height//2), black)
-            time.sleep(4)
             self.just_won = True
+            time.sleep(4)
+
             self.play_or_exit()
         elif self.dealer.value == 21:
             screen.blit(show_dealer_card, (screen_width * .66, screen_height * .25))
@@ -166,7 +167,6 @@ class Play:
             player_card_3 = pygame.transform.scale(player_card_3,
                                                    tuple(i * 0.15 for i in screen_dimensions[::-1]))
             screen.blit(player_card_3, (screen_width * .75, screen_height * .75))
-            print('1)')
 
         if self.player_card == 3:
             self.player.calc_hand()
@@ -175,7 +175,6 @@ class Play:
             player_card_4 = pygame.transform.scale(player_card_4,
                                                    tuple(i * 0.15 for i in screen_dimensions[::-1]))
             screen.blit(player_card_4, (screen_width * .9, screen_height * .75))
-            print('2')
 
         if self.player.value > 21:
             game_finish("You Busted. I win", (screen_width//2, screen_height//2), black)
@@ -198,6 +197,7 @@ class Play:
         self.blackjack()
         self.dealer.calc_hand()
         self.player.calc_hand()
+
         if self.player.value > self.dealer.value:
             game_finish("You Won!", (screen_width//2, screen_height//2), black)
             time.sleep(4)
