@@ -102,7 +102,7 @@ class Play:
     def blackjack(self):
         self.dealer.calc_hand()
         self.player.calc_hand()
-        print(self.player.value)
+        print('player value' + str(self.player.value))
         show_dealer_card = pygame.image.load('img/' + self.dealer.card_img[1] + '.png').convert()
         show_dealer_card = pygame.transform.scale(show_dealer_card,
                                                   tuple(i * 0.15 for i in screen_dimensions[::-1]))
@@ -133,9 +133,18 @@ class Play:
             self.just_won = False
             self.just_tied = False
             self.just_blackjack = True
-
             self.loss_differential = (self.dealer.value - self.player.value) % code_nums
+            print('bj loss diff: '+str(self.loss_differential))
             self.play_or_exit()
+
+        # elif self.dealer.value > 21:
+        #     game_finish("I Busted. you win", (screen_width//2, screen_height//2), black)
+        #     time.sleep(4)
+        #     self.just_won = True
+        #     self.just_tied = False
+        #     self.just_blackjack = False
+        #     self.loss_differential = 0
+        #     self.play_or_exit()
 
         self.player.value = 0
         self.dealer.value = 0
@@ -147,6 +156,7 @@ class Play:
         self.dealer.display_cards()
         self.player.display_cards()
         self.player_card = 1
+        self.dealer_card = 0
         dealer_card = pygame.image.load('img/' + self.dealer.card_img[0] + '.png')
         dealer_card = pygame.transform.scale(dealer_card,
                                              tuple(i * 0.1 for i in screen_dimensions[::-1]))
@@ -170,7 +180,6 @@ class Play:
     def hit(self):
         self.player.add_card(self.deck.deal())
         self.player_card += 1
-        # self.blackjack()
 
         if self.player_card == 2:
 
@@ -180,7 +189,7 @@ class Play:
             player_card_3 = pygame.transform.scale(player_card_3,
                                                    tuple(i * 0.1 for i in screen_dimensions[::-1]))
             screen.blit(player_card_3, (screen_width * .35, screen_height * .75))
-            print(self.player.value)
+
             self.player.value = 0
             self.blackjack()
 
@@ -220,7 +229,7 @@ class Play:
 
         if self.player_card > 4:
             self.play_or_exit()
-            print('4')
+
 
     def stand(self):
         show_dealer_card = pygame.image.load('img/' + self.dealer.card_img[1] + '.png')
@@ -230,8 +239,51 @@ class Play:
         # self.blackjack()
         self.dealer.calc_hand()
         self.player.calc_hand()
+        if self.dealer.value < 17 and self.player.value > self.dealer.value:
 
-        if self.player.value > self.dealer.value:
+            print('need to hit')
+            self.dealer.add_card(self.deck.deal())
+            self.dealer_card += 1
+            if self.dealer_card == 1:
+                self.dealer.display_cards()
+                dealer_card_3 = pygame.image.load('img/' + self.dealer.card_img[2] + '.png')
+                dealer_card_3 = pygame.transform.scale(dealer_card_3,
+                                                       tuple(i * 0.1 for i in screen_dimensions[::-1]))
+                screen.blit(dealer_card_3, (screen_width * .8, screen_height * .25))
+                self.dealer.value = 0
+                self.player.value = 0
+                self.blackjack()
+                self.dealer.calc_hand()
+                self.player.calc_hand()
+                print('pre_round_2 dealer: '+str(self.dealer.value))
+                if self.dealer.value < 17 and self.player.value > self.dealer.value:
+                    self.dealer.value = 0
+                    self.dealer.add_card(self.deck.deal())
+                    self.dealer.display_cards()
+                    self.dealer.calc_hand()
+                    dealer_card_4 = pygame.image.load('img/' + self.dealer.card_img[3] + '.png')
+                    dealer_card_4 = pygame.transform.scale(dealer_card_4,
+                                                           tuple(i * 0.1 for i in screen_dimensions[::-1]))
+                    screen.blit(dealer_card_4, (screen_width * .85, screen_height * .25))
+                    print('post_round_2 dealer: ' + str(self.dealer.value))
+                    self.dealer.value = 0
+                    self.player.value = 0
+                    self.blackjack()
+        time.sleep(4)
+        self.dealer.value = 0
+        self.player.value =0
+        self.dealer.calc_hand()
+        self.player.calc_hand()
+        print(self.player.value, self.dealer.value)
+        if self.dealer.value > 21:
+            game_finish("You win I busted", (screen_width//2, screen_height//2), black)
+            self.loss_differential = 0
+            self.just_won = True
+            self.just_tied = False
+            self.just_blackjack = False
+            time.sleep(4)
+            self.play_or_exit()
+        elif self.player.value > self.dealer.value:
             game_finish("You Won!", (screen_width//2, screen_height//2), black)
             time.sleep(4)
             self.just_won = True
@@ -246,8 +298,10 @@ class Play:
             self.just_blackjack = False
             time.sleep(4)
             self.play_or_exit()
-        else:
-            game_finish("We tie", (screen_width//2, screen_height//2), black)
+
+        elif (self.dealer.value == self.player.value) and (self.player.value != 0):
+            game_finish("We tie", (screen_width // 2, screen_height // 2), black)
+            self.loss_differential = 0
             self.just_won = False
             self.just_tied = True
             self.just_blackjack = False

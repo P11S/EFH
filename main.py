@@ -78,6 +78,7 @@ def task1():
     screen.blit(backing.task1, (0, 0))
     play_blackjack = Play()
     just_dealt = False
+    can_hit = False
 
 
     while True:
@@ -100,28 +101,31 @@ def task1():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if TO_MAINROOM_BUTTON.check_input(menu_mouse_loc):
                     mainroom()
-                print(just_dealt, play_blackjack.just_blackjack)
                 if DEAL_BUTTON.check_input(menu_mouse_loc) and len(play_blackjack.player.card_img) == 0:
                     play_blackjack.deal()
                     just_dealt = True
+                    can_hit = True
 
                     if not play_blackjack.just_won and not play_blackjack.just_tied and play_blackjack.loss_differential != 0:
                          try:
                             box_code.row1_keys[play_blackjack.loss_differential - 1] = abs(
                                 box_code.row1_keys[play_blackjack.loss_differential - 1] - 1)
                             box_code.row2_keys[play_blackjack.loss_differential - 1] = abs(
-                                box_code.row2_keys[play_blackjack.loss_differential - 1] - 1)
+                                 box_code.row2_keys[play_blackjack.loss_differential - 1] - 1)
                             print('Loss differential: ' +str(play_blackjack.loss_differential))
                          except:
                              pass
-                if HIT_BUTTON.check_input(menu_mouse_loc):
-                    just_dealt = False
+                if HIT_BUTTON.check_input(menu_mouse_loc) and can_hit:
+
                     try:
                         play_blackjack.hit()
+                        just_dealt = False
+                        can_hit = True
                     except:
                         pass
                 if STAND_BUTTON.check_input(menu_mouse_loc):
                     just_dealt = False
+                    can_hit = False
                     try:
                         play_blackjack.stand()
                     except:
