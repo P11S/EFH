@@ -119,10 +119,11 @@ class Play:
         elif self.player.value == 21:
             screen.blit(show_dealer_card, (screen_width * .66, screen_height * .25))
             black_jack("You win with BlackJack", (screen_width//2, screen_height//2), black)
+            time.sleep(4)
             self.just_won = True
             self.just_tied = False
             self.just_blackjack = True
-            time.sleep(4)
+
             self.loss_differential = 0
             self.play_or_exit()
         elif self.dealer.value == 21:
@@ -132,6 +133,7 @@ class Play:
             self.just_won = False
             self.just_tied = False
             self.just_blackjack = True
+
             self.loss_differential = (self.dealer.value - self.player.value) % code_nums
             self.play_or_exit()
 
@@ -147,22 +149,22 @@ class Play:
         self.player_card = 1
         dealer_card = pygame.image.load('img/' + self.dealer.card_img[0] + '.png')
         dealer_card = pygame.transform.scale(dealer_card,
-                                             tuple(i * 0.15 for i in screen_dimensions[::-1]))
+                                             tuple(i * 0.1 for i in screen_dimensions[::-1]))
         dealer_card_2 = pygame.image.load('img/back.png')
         dealer_card_2 = pygame.transform.scale(dealer_card_2,
-                                               tuple(i * 0.15 for i in screen_dimensions[::-1]))
+                                               tuple(i * 0.1 for i in screen_dimensions[::-1]))
         player_card = pygame.image.load('img/' + self.player.card_img[0] + '.png')
         player_card = pygame.transform.scale(player_card,
-                                             tuple(i * 0.15 for i in screen_dimensions[::-1]))
+                                             tuple(i * 0.1 for i in screen_dimensions[::-1]))
         player_card_2 = pygame.image.load('img/' + self.player.card_img[1] + '.png')
         player_card_2 = pygame.transform.scale(player_card_2,
-                                               tuple(i * 0.15 for i in screen_dimensions[::-1]))
+                                               tuple(i * 0.1 for i in screen_dimensions[::-1]))
 
         screen.blit(dealer_card, (screen_width * .33, screen_height * .25))
         screen.blit(dealer_card_2, (screen_width * .66, screen_height * .25))
 
-        screen.blit(player_card, (screen_width * .25, screen_height * .75))
-        screen.blit(player_card_2, (screen_width * .5, screen_height * .75))
+        screen.blit(player_card, (screen_width * .45, screen_height * .65))
+        screen.blit(player_card_2, (screen_width * .4, screen_height * .70))
         self.blackjack()
 
     def hit(self):
@@ -176,10 +178,8 @@ class Play:
             self.player.display_cards()
             player_card_3 = pygame.image.load('img/' + self.player.card_img[2] + '.png')
             player_card_3 = pygame.transform.scale(player_card_3,
-                                                   tuple(i * 0.15 for i in screen_dimensions[::-1]))
-            screen.blit(player_card_3, (screen_width * .75, screen_height * .75))
-
-            print('hello')
+                                                   tuple(i * 0.1 for i in screen_dimensions[::-1]))
+            screen.blit(player_card_3, (screen_width * .35, screen_height * .75))
             print(self.player.value)
             self.player.value = 0
             self.blackjack()
@@ -189,16 +189,30 @@ class Play:
             self.player.display_cards()
             player_card_4 = pygame.image.load('img/' + self.player.card_img[3] + '.png')
             player_card_4 = pygame.transform.scale(player_card_4,
-                                                   tuple(i * 0.15 for i in screen_dimensions[::-1]))
-            screen.blit(player_card_4, (screen_width * .9, screen_height * .75))
+                                                   tuple(i * 0.1 for i in screen_dimensions[::-1]))
+            screen.blit(player_card_4, (screen_width * .3, screen_height * .8))
             self.player.value = 0
             self.blackjack()
+
+        if self.player_card == 4:
+            self.player.calc_hand()
+            self.player.display_cards()
+            player_card_5 = pygame.image.load('img/' + self.player.card_img[4] + '.png')
+            player_card_5 = pygame.transform.scale(player_card_5,
+                                                   tuple(i * 0.1 for i in screen_dimensions[::-1]))
+            screen.blit(player_card_5, (screen_width * .25, screen_height * .85))
+            self.player.value = 0
+            self.blackjack()
+
         self.player.calc_hand()
+
+
         if self.player.value > 21:
             game_finish("You Busted. I win", (screen_width//2, screen_height//2), black)
             time.sleep(4)
             self.just_won = False
             self.just_tied = False
+            self.just_blackjack = False
             self.loss_differential = (self.player.value - 21) % code_nums
             self.play_or_exit()
 
@@ -222,18 +236,21 @@ class Play:
             time.sleep(4)
             self.just_won = True
             self.just_tied = False
+            self.just_blackjack = False
             self.play_or_exit()
         elif self.player.value < self.dealer.value:
             game_finish("I Won!", (screen_width//2, screen_height//2), black)
             self.loss_differential = (self.dealer.value - self.player.value) % code_nums
             self.just_won = False
             self.just_tied = False
+            self.just_blackjack = False
             time.sleep(4)
             self.play_or_exit()
         else:
             game_finish("We tie", (screen_width//2, screen_height//2), black)
             self.just_won = False
             self.just_tied = True
+            self.just_blackjack = False
             time.sleep(4)
             self.play_or_exit()
 

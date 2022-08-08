@@ -85,9 +85,9 @@ def task1():
         menu_mouse_loc = pygame.mouse.get_pos()
 
         TO_MAINROOM_BUTTON = Button(sprites.task_to_main, (.03 * screen_width, .05 * screen_height))
-        DEAL_BUTTON = Button(sprites.deal, (.25 * screen_width, .66 * screen_height))
-        HIT_BUTTON = Button(sprites.hit, (.5 * screen_width, .66 * screen_height))
-        STAND_BUTTON = Button(sprites.stand, (.75 * screen_width, .66 * screen_height))
+        DEAL_BUTTON = Button(sprites.deal, (0.1 * screen_width, .25 * screen_height))
+        HIT_BUTTON = Button(sprites.hit, (0.1 * screen_width, .5 * screen_height))
+        STAND_BUTTON = Button(sprites.stand, (0.1 * screen_width, .75 * screen_height))
         LOCK_BUTTON = Button(sprites.lock, (.9 * screen_width, .5 * screen_height))
 
         for button in [TO_MAINROOM_BUTTON, DEAL_BUTTON, HIT_BUTTON, STAND_BUTTON, LOCK_BUTTON]:
@@ -100,10 +100,10 @@ def task1():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if TO_MAINROOM_BUTTON.check_input(menu_mouse_loc):
                     mainroom()
-                if DEAL_BUTTON.check_input(menu_mouse_loc) and (not just_dealt or play_blackjack.just_blackjack):
+                print(just_dealt, play_blackjack.just_blackjack)
+                if DEAL_BUTTON.check_input(menu_mouse_loc) and len(play_blackjack.player.card_img) == 0:
                     play_blackjack.deal()
                     just_dealt = True
-                    play_blackjack.just_blackjack = False
 
                     if not play_blackjack.just_won and not play_blackjack.just_tied and play_blackjack.loss_differential != 0:
                          try:
