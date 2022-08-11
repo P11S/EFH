@@ -7,12 +7,12 @@ import sys
 # https://medium.com/nerd-for-tech/creating-blackjack-game-with-python-80a3b87b1995
 
 def text_objects(text, font):
-    textSurface = font.render(text, True, black)
+    textSurface = font.render(text, True, black, grey)
     return textSurface, textSurface.get_rect()
 
 
 def end_text_objects(text, font, color):
-    textSurface = font.render(text, True, color)
+    textSurface = font.render(text, True, color, grey)
     return textSurface, textSurface.get_rect()
 
 

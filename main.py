@@ -6,7 +6,7 @@ pygame.init()
 from button import *
 from blackjack_deck import *
 from lockbox import *
-
+from constants import *
 # Game screen
 
 
@@ -16,6 +16,7 @@ fps = 30
 fps_clock = pygame.time.Clock()
 
 box_code = LockBox(code_nums)
+
 
 
 def main_menu():
@@ -38,7 +39,7 @@ def main_menu():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BUTTON.check_input(menu_mouse_loc):
-                    mainroom()
+                    mainroom(JUST_LAUNCHED)
                 if SETTINGS_BUTTON.check_input(menu_mouse_loc):
                     settings()
                 if ACHIEVEMENTS_BUTTON.check_input(menu_mouse_loc):
@@ -48,7 +49,7 @@ def main_menu():
         fps_clock.tick(fps)
 
 
-def mainroom():
+def mainroom(first_open):
     while True:
         # Set Backdrop
         screen.blit(backing.mainroom, (0, 0))
@@ -59,6 +60,20 @@ def mainroom():
 
         for button in [TO_MENU_BUTTON, TASK1_BUTTON]:
             button.update(screen)
+
+        # Intro Dialogue
+        if first_open:
+            # NEW TEXT BUTTON MENU
+            first_open = False
+            for x in intro_dialogue:
+
+                game_finish(x[0], (screen_width // 2, screen_height // 2), black)
+                time.sleep(x[1])
+                screen.blit(backing.mainroom, (0, 0))
+                TO_MENU_BUTTON = Button(sprites.any_to_menu, (.03 * screen_width, .05 * screen_height))
+                TASK1_BUTTON = Button(sprites.task1, (0.5 * screen_width, .66 * screen_height))
+                for button in [TO_MENU_BUTTON, TASK1_BUTTON]:
+                    button.update(screen)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -100,7 +115,7 @@ def task1():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if TO_MAINROOM_BUTTON.check_input(menu_mouse_loc):
-                    mainroom()
+                    mainroom(first_open=False)
                 if DEAL_BUTTON.check_input(menu_mouse_loc) and len(play_blackjack.player.card_img) == 0:
                     play_blackjack.deal()
                     just_dealt = True
