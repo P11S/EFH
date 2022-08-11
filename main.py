@@ -4,6 +4,7 @@ import pygame
 
 pygame.init()
 from button import *
+from textbox import *
 from blackjack_deck import *
 from lockbox import *
 from constants import *
@@ -16,6 +17,7 @@ fps = 30
 fps_clock = pygame.time.Clock()
 
 box_code = LockBox(code_nums)
+
 
 
 
@@ -62,18 +64,32 @@ def mainroom(first_open):
             button.update(screen)
 
         # Intro Dialogue
+        # if first_open:
+        #     # NEW TEXT BUTTON MENU
+        #     first_open = False
+        #     for x in intro_dialogue:
+        #
+        #         game_finish(x[0], (screen_width // 2, screen_height // 2), black)
+        #         time.sleep(x[1])
+        #         screen.blit(backing.mainroom, (0, 0))
+        #         TO_MENU_BUTTON = Button(sprites.any_to_menu, (.03 * screen_width, .05 * screen_height))
+        #         TASK1_BUTTON = Button(sprites.task1, (0.5 * screen_width, .66 * screen_height))
+        #         for button in [TO_MENU_BUTTON, TASK1_BUTTON]:
+        #             button.update(screen)
+
         if first_open:
             # NEW TEXT BUTTON MENU
             first_open = False
             for x in intro_dialogue:
-
-                game_finish(x[0], (screen_width // 2, screen_height // 2), black)
+                # print(x)
+                TEXTBOX = Textbox((screen_width//2, screen_height//2), x[0])
                 time.sleep(x[1])
                 screen.blit(backing.mainroom, (0, 0))
                 TO_MENU_BUTTON = Button(sprites.any_to_menu, (.03 * screen_width, .05 * screen_height))
                 TASK1_BUTTON = Button(sprites.task1, (0.5 * screen_width, .66 * screen_height))
                 for button in [TO_MENU_BUTTON, TASK1_BUTTON]:
                     button.update(screen)
+
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

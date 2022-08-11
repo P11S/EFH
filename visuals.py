@@ -107,3 +107,8 @@ class Clickable:
         box_button_png = pygame.transform.scale(box_button_png,
                                                   tuple(i * 0.07 for i in screen_dimensions))
         self.box_button = box_button_png
+        # Sprite for the lock box buttons
+        textbox_png = pygame.image.load('visuals/Sprites/textbox.png')
+        textbox_png = pygame.transform.scale(textbox_png,
+                                             (screen_dimensions[0] * .4, screen_dimensions[1] * .09))
+        self.textbox = textbox_png
