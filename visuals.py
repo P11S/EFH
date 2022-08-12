@@ -70,7 +70,7 @@ class Clickable:
         # Sprite for button with path MAINSCREEN -> TASK1
         task1_png = pygame.image.load('visuals/Sprites/task1.png')
         task1_png = pygame.transform.scale(task1_png,
-                                           tuple(i * 0.15 for i in screen_dimensions))
+                                           (screen_dimensions[0]*.25, screen_dimensions[1]*.1))
         self.task1 = task1_png
         # Sprite for the button with path MENU -> ACHIEVEMENTS
         menu_to_achievements_png = pygame.image.load('visuals/Sprites/to_achievements.png')

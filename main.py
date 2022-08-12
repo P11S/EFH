@@ -55,7 +55,7 @@ def mainroom(first_open):
         menu_mouse_loc = pygame.mouse.get_pos()
 
         TO_MENU_BUTTON = Button(sprites.any_to_menu, (.03 * screen_width, .05 * screen_height))
-        TASK1_BUTTON = Button(sprites.task1, (0.5 * screen_width, .66 * screen_height))
+        TASK1_BUTTON = Button(sprites.task1, (0.55 * screen_width, .74 * screen_height))
 
         for button in [TO_MENU_BUTTON, TASK1_BUTTON]:
             button.update(screen)
@@ -78,11 +78,11 @@ def mainroom(first_open):
             # NEW TEXT BUTTON MENU
             first_open = False
             for x in intro_dialogue:
-                TEXTBOX = Textbox((screen_width // 2, screen_height // 2), x[0])
+                TEXTBOX = Textbox((screen_width * .63, screen_height * .44), x[0])
                 time.sleep(x[1])
                 screen.blit(backing.mainroom, (0, 0))
                 TO_MENU_BUTTON = Button(sprites.any_to_menu, (.03 * screen_width, .05 * screen_height))
-                TASK1_BUTTON = Button(sprites.task1, (0.5 * screen_width, .66 * screen_height))
+                TASK1_BUTTON = Button(sprites.task1, (0.55 * screen_width, .74 * screen_height))
                 for button in [TO_MENU_BUTTON, TASK1_BUTTON]:
                     button.update(screen)
 

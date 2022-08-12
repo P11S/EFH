@@ -5,7 +5,7 @@ class Textbox:
     def __init__(self,loc, text):
         textbox_png = pygame.image.load('visuals/Sprites/textbox.png')
         textbox_png = pygame.transform.scale(textbox_png,
-                                             (len(text)*10+10, screen_dimensions[1] * .09))
+                                             (len(text)*8.5+10, screen_dimensions[1] * .08))
         self.img = textbox_png
         self.x_loc = loc[0]
         self.y_loc = loc[1]
