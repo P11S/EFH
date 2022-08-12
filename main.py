@@ -8,29 +8,26 @@ from textbox import *
 from blackjack_deck import *
 from lockbox import *
 from constants import *
+
 # Game screen
-
-
 # backing = visuals.Backdrop()
 # sprites = visuals.Clickable()
 fps = 30
 fps_clock = pygame.time.Clock()
-
 box_code = LockBox(code_nums)
 
 
-
-
 def main_menu():
+
     while True:
         # Set backdrop
         screen.blit(backing.menu, (0, 0))
         menu_mouse_loc = pygame.mouse.get_pos()
 
         # All clickables (buttons) should be placed here
-        PLAY_BUTTON = Button(sprites.menu_to_mainscreen, (0.5 * screen_width, .66 * screen_height))
-        SETTINGS_BUTTON = Button(sprites.menu_to_settings, (0.7 * screen_width, .66 * screen_height))
-        ACHIEVEMENTS_BUTTON = Button(sprites.menu_to_achievements, (0.3 * screen_width, .66 * screen_height))
+        PLAY_BUTTON = Button(sprites.menu_to_mainscreen, (0.49 * screen_width, .6 * screen_height))
+        SETTINGS_BUTTON = Button(sprites.menu_to_settings, (0.23 * screen_width, .69 * screen_height))
+        ACHIEVEMENTS_BUTTON = Button(sprites.menu_to_achievements, (0.79 * screen_width, .52 * screen_height))
 
         for button in [PLAY_BUTTON, SETTINGS_BUTTON, ACHIEVEMENTS_BUTTON]:
             button.update(screen)
@@ -81,15 +78,13 @@ def mainroom(first_open):
             # NEW TEXT BUTTON MENU
             first_open = False
             for x in intro_dialogue:
-                # print(x)
-                TEXTBOX = Textbox((screen_width//2, screen_height//2), x[0])
+                TEXTBOX = Textbox((screen_width // 2, screen_height // 2), x[0])
                 time.sleep(x[1])
                 screen.blit(backing.mainroom, (0, 0))
                 TO_MENU_BUTTON = Button(sprites.any_to_menu, (.03 * screen_width, .05 * screen_height))
                 TASK1_BUTTON = Button(sprites.task1, (0.5 * screen_width, .66 * screen_height))
                 for button in [TO_MENU_BUTTON, TASK1_BUTTON]:
                     button.update(screen)
-
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -110,7 +105,6 @@ def task1():
     play_blackjack = Play()
     just_dealt = False
     can_hit = False
-
 
     while True:
         # menu specific code
@@ -138,14 +132,14 @@ def task1():
                     can_hit = True
 
                     if not play_blackjack.just_won and not play_blackjack.just_tied and play_blackjack.loss_differential != 0:
-                         try:
+                        try:
                             box_code.row1_keys[play_blackjack.loss_differential - 1] = abs(
                                 box_code.row1_keys[play_blackjack.loss_differential - 1] - 1)
                             box_code.row2_keys[play_blackjack.loss_differential - 1] = abs(
-                                 box_code.row2_keys[play_blackjack.loss_differential - 1] - 1)
-                            print('Loss differential: ' +str(play_blackjack.loss_differential))
-                         except:
-                             pass
+                                box_code.row2_keys[play_blackjack.loss_differential - 1] - 1)
+                            print('Loss differential: ' + str(play_blackjack.loss_differential))
+                        except:
+                            pass
                 if HIT_BUTTON.check_input(menu_mouse_loc) and can_hit:
 
                     try:
@@ -204,6 +198,7 @@ def lockbox():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if TO_TABLE_BUTTON.check_input(menu_mouse_loc):
                     task1()
+
                 try:
                     if box_code.row1_buttons[box_code.code_reached].check_input(menu_mouse_loc):
                         if box_code.row1_keys[box_code.code_reached] == 0:
@@ -215,9 +210,11 @@ def lockbox():
                             task1()
                         else:
                             box_code.code_reached += 1
+                            if box_code.code_reached > 9:
+                                escape()
                 except:
                     print('game over!')
-                    main_menu()
+                    escape()
 
         pygame.display.flip()
         fps_clock.tick(fps)
@@ -230,6 +227,42 @@ def settings():
         menu_mouse_loc = pygame.mouse.get_pos()
 
         TO_MENU_BUTTON = Button(sprites.any_to_menu, (.03 * screen_width, .05 * screen_height))
+
+        for button in [TO_MENU_BUTTON]:
+            button.update(screen)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if TO_MENU_BUTTON.check_input(menu_mouse_loc):
+                    main_menu()
+
+        pygame.display.flip()
+        fps_clock.tick(fps)
+
+
+def escape():
+    secs_to_beat = int((pygame.time.get_ticks() / 1000) % 60)
+    min_to_beat = int((pygame.time.get_ticks() / (1000 * 60)) % 60)
+    txt_to_beat1 = 'You finally did it and it only took you ' + str(min_to_beat) + ' minutes and ' + str(
+        secs_to_beat) + ' seconds'
+    txt_to_beat2 = "Now go show everyone why you're the top gambler in your GA group."
+    end_dialogue = [txt_to_beat1, txt_to_beat2]
+    just_beat = True
+    while True:
+        # Set Backdrop
+        screen.blit(backing.escape, (0, 0))
+        menu_mouse_loc = pygame.mouse.get_pos()
+
+        TO_MENU_BUTTON = Button(sprites.any_to_menu, (.03 * screen_width, .05 * screen_height))
+        while just_beat:
+            just_beat = False
+            for x in end_dialogue:
+                TEXTBOX = Textbox((screen_width * 0.2, screen_height * .2), x)
+                time.sleep(3)
+                screen.blit(backing.escape, (0, 0))
 
         for button in [TO_MENU_BUTTON]:
             button.update(screen)

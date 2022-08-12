@@ -25,10 +25,10 @@ SUITS = ['C', 'S', 'H', 'D']
 RANKS = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
 
 
-font = pygame.font.SysFont("Arial", 20)
-textfont = pygame.font.SysFont('Comic Sans MS', 35)
+font = pygame.font.SysFont("optima", 20)
+textfont = pygame.font.SysFont('optimaS', 35)
 game_end = pygame.font.SysFont('optima', 21)
-blackjack = pygame.font.SysFont('roboto', 70)
+blackjack = pygame.font.SysFont('optima', 70)
 
 # Dialogue Bits
 intro_dialogue = [("...", 2),

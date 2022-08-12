@@ -2,6 +2,7 @@ import random
 from constants import *
 import time
 import sys
+from textbox import *
 
 
 # https://medium.com/nerd-for-tech/creating-blackjack-game-with-python-80a3b87b1995
@@ -218,6 +219,7 @@ class Play:
 
         if self.player.value > 21:
             game_finish("You Busted. I win", (screen_width//2, screen_height//2), black)
+            # TEXTBOX = Textbox((screen_width // 2, screen_height // 2), x[0])
             time.sleep(4)
             self.just_won = False
             self.just_tied = False

@@ -35,10 +35,15 @@ class Backdrop:
         task1_png = pygame.image.load('visuals/Backdrops/EFH_task1.png')
         task1_png = pygame.transform.scale(task1_png, screen_dimensions)
         self.task1 = task1_png
-        # Backdrop for the main menu
+        # Backdrop for the lockbox menu
         lockbox_png = pygame.image.load('visuals/Backdrops/EFH_lockbox.png')
         lockbox_png = pygame.transform.scale(lockbox_png, screen_dimensions)
         self.lockbox = lockbox_png
+        # Backdrop for the escape menu
+        # Backdrop for the main menu
+        escape_png = pygame.image.load('visuals/Backdrops/escape.png')
+        escape_png = pygame.transform.scale(escape_png, screen_dimensions)
+        self.escape = escape_png
 
 
 class Clickable:
@@ -50,7 +55,7 @@ class Clickable:
         # Sprite for the button with path MENU -> MAIN GAME
         menu_to_mainscreen_png = pygame.image.load('visuals/Sprites/menu_to_main.png')
         menu_to_mainscreen_png = pygame.transform.scale(menu_to_mainscreen_png,
-                                                        tuple(i * 0.15 for i in screen_dimensions))
+                                                        (screen_dimensions[0]*.16, screen_dimensions[1]*.5))
         self.menu_to_mainscreen = menu_to_mainscreen_png
         # Sprite for button with path ANYWHERE -> MENU
         any_to_menu_png = pygame.image.load('visuals/Sprites/exit_to_home.png')
@@ -60,7 +65,7 @@ class Clickable:
         # Sprite for button with path MENU -> SETTINGS
         menu_to_settings_png = pygame.image.load('visuals/Sprites/to_settings.png')
         menu_to_settings_png = pygame.transform.scale(menu_to_settings_png,
-                                                      tuple(i * 0.15 for i in screen_dimensions))
+                                                      tuple(i * 0.08 for i in screen_dimensions))
         self.menu_to_settings = menu_to_settings_png
         # Sprite for button with path MAINSCREEN -> TASK1
         task1_png = pygame.image.load('visuals/Sprites/task1.png')

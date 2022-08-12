@@ -13,16 +13,13 @@ class Textbox:
         self.txtSurface = font.render(text, True, black)
         self.txtRect = self.txtSurface.get_rect(midleft=(self.x_loc, self.y_loc))
 
-
         screen.blit(self.img, self.rect)
         screen.blit(self.txtSurface, self.txtRect)
-        pygame.display.update()
+        pygame.display.flip()
 
-
-
-    # def update(self, screen):
-    #     screen.blit(self.img, self.rect)
-    #     screen.blit(self.txtSurface, self.txtRect)
+    def update(self, screen):
+        screen.blit(self.img, self.rect)
+        screen.blit(self.txtSurface, self.txtRect)
 
     def check_input(self, position):
         if position[0] in range(self.rect.left, self.rect.right) and position[1] in range(self.rect.top, self.rect.bottom):
