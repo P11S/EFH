@@ -25,9 +25,9 @@ SUITS = ['C', 'S', 'H', 'D']
 RANKS = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
 
 
-font = pygame.font.SysFont("optima", 17)
+font = pygame.font.SysFont("optima", 15)
 textfont = pygame.font.SysFont('optimaS', 35)
-game_end = pygame.font.SysFont('optima', 17)
+game_end = pygame.font.SysFont('optima', 15)
 blackjack = pygame.font.SysFont('optima', 70)
 
 # Dialogue Bits

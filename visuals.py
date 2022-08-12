@@ -85,22 +85,22 @@ class Clickable:
         # Sprite for the button DEAL
         deal_png = pygame.image.load('visuals/Sprites/deal.png')
         deal_png = pygame.transform.scale(deal_png,
-                                                          tuple(i * 0.15 for i in screen_dimensions))
+                                                          tuple(i * 0.1 for i in screen_dimensions))
         self.deal = deal_png
         # Sprite for the button HIT
         hit_png = pygame.image.load('visuals/Sprites/hit.png')
         hit_png = pygame.transform.scale(hit_png,
-                                          tuple(i * 0.15 for i in screen_dimensions))
+                                          tuple(i * 0.1 for i in screen_dimensions))
         self.hit = hit_png
         # Sprite for the button STAND
         stand_png = pygame.image.load('visuals/Sprites/stand.png')
         stand_png = pygame.transform.scale(stand_png,
-                                           tuple(i * 0.15 for i in screen_dimensions))
+                                           tuple(i * 0.1 for i in screen_dimensions))
         self.stand = stand_png
         # Sprite for the lock box
         lock_png = pygame.image.load('visuals/Sprites/lock.png')
         lock_png = pygame.transform.scale(lock_png,
-                                           tuple(i * 0.15 for i in screen_dimensions))
+                                           tuple(i * 0.33 for i in screen_dimensions))
         self.lock = lock_png
         # Sprite for the button with path LOCK BOX -> CARD TABLE
         box_to_table_png = pygame.image.load('visuals/Sprites/box_to_table.png')
@@ -110,7 +110,7 @@ class Clickable:
         # Sprite for the lock box buttons
         box_button_png = pygame.image.load('visuals/Sprites/box_button.png')
         box_button_png = pygame.transform.scale(box_button_png,
-                                                  tuple(i * 0.07 for i in screen_dimensions))
+                                                  (screen_dimensions[0] * .06, screen_dimensions[1] * .06 * ratio))
         self.box_button = box_button_png
         # Sprite for the lock box buttons
         textbox_png = pygame.image.load('visuals/Sprites/textbox.png')

@@ -19,7 +19,7 @@ class LockBox:
         entry_x_loc = -x_ticks / 2
         for i in range(2, self.columns+2):
             entry_x_loc += x_ticks
-            button = Button(sprites.box_button, (entry_x_loc, .4 * screen_height))
+            button = Button(sprites.box_button, (entry_x_loc, .82 * screen_height))
             key = random.randint(0, 1)
             self.row1_buttons.append(button)
             self.row1_keys.append(key)
@@ -29,7 +29,7 @@ class LockBox:
         entry_x_loc = -x_ticks / 2
         for i in range(2, self.columns+2):
             entry_x_loc += x_ticks
-            button = Button(sprites.box_button, (entry_x_loc, .6 * screen_height))
+            button = Button(sprites.box_button, (entry_x_loc, .94 * screen_height))
             key = abs(self.row1_keys[i-2]-1)
             self.row2_buttons.append(button)
             self.row2_keys.append(key)

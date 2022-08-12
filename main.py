@@ -111,10 +111,10 @@ def task1():
         menu_mouse_loc = pygame.mouse.get_pos()
 
         TO_MAINROOM_BUTTON = Button(sprites.task_to_main, (.03 * screen_width, .05 * screen_height))
-        DEAL_BUTTON = Button(sprites.deal, (0.1 * screen_width, .25 * screen_height))
-        HIT_BUTTON = Button(sprites.hit, (0.1 * screen_width, .5 * screen_height))
-        STAND_BUTTON = Button(sprites.stand, (0.1 * screen_width, .75 * screen_height))
-        LOCK_BUTTON = Button(sprites.lock, (.9 * screen_width, .5 * screen_height))
+        DEAL_BUTTON = Button(sprites.deal, (0.1 * screen_width, .65 * screen_height))
+        HIT_BUTTON = Button(sprites.hit, (0.1 * screen_width, .78 * screen_height))
+        STAND_BUTTON = Button(sprites.stand, (0.1 * screen_width, .91 * screen_height))
+        LOCK_BUTTON = Button(sprites.lock, (.85 * screen_width, .8 * screen_height))
 
         for button in [TO_MAINROOM_BUTTON, DEAL_BUTTON, HIT_BUTTON, STAND_BUTTON, LOCK_BUTTON]:
             button.update(screen)
