@@ -25,9 +25,9 @@ SUITS = ['C', 'S', 'H', 'D']
 RANKS = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
 
 
-font = pygame.font.SysFont("optima", 15)
+font = pygame.font.SysFont("optima", 16)
 textfont = pygame.font.SysFont('optimaS', 35)
-game_end = pygame.font.SysFont('optima', 15)
+game_end = pygame.font.SysFont('optima', 16)
 blackjack = pygame.font.SysFont('optima', 70)
 
 # Dialogue Bits
@@ -35,7 +35,7 @@ intro_dialogue = [("...", 2),
                   ("Trying to escape through the back?", 2.5), ("Now just how much did you lose out there?", 2.5),
                 ("No matter... It must have been a lot.", 2), ("Well you clearly need some practice.", 2),
                 ("Would you join me in a game of Blackjack?", 2.5),
-                ("Win the key from me and see yourself back on the floor", 3), ("Surely you can't keep losing...", 2.5)]
+                ("Win the key and get back out there.", 3), ("Surely you can't keep losing...", 2.5)]
 
 # ("Oh but you're the best Gambler in your GA group?", 3),
 #                 ("That's... nice", 1.5

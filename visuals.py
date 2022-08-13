@@ -100,7 +100,7 @@ class Clickable:
         # Sprite for the lock box
         lock_png = pygame.image.load('visuals/Sprites/lock.png')
         lock_png = pygame.transform.scale(lock_png,
-                                           tuple(i * 0.33 for i in screen_dimensions))
+                                           (screen_dimensions[0] * .35, screen_dimensions[1] * .35))
         self.lock = lock_png
         # Sprite for the button with path LOCK BOX -> CARD TABLE
         box_to_table_png = pygame.image.load('visuals/Sprites/box_to_table.png')

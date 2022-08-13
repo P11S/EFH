@@ -106,10 +106,10 @@ class Play:
         print('player value' + str(self.player.value))
         show_dealer_card = pygame.image.load('img/' + self.dealer.card_img[1] + '.png').convert()
         show_dealer_card = pygame.transform.scale(show_dealer_card,
-                                                  tuple(i * 0.15 for i in screen_dimensions[::-1]))
+                                                  tuple(i * 0.1 for i in screen_dimensions[::-1]))
 
         if self.player.value == 21 and self.dealer.value == 21:
-            screen.blit(show_dealer_card, (screen_width * .66, screen_height * .25))
+            screen.blit(show_dealer_card, (screen_width * .45, screen_height * .15))
             black_jack("We tie with BlackJack", (screen_width//2, screen_height//2), black)
             time.sleep(4)
             self.just_won = False
@@ -118,7 +118,7 @@ class Play:
             self.play_or_exit()
             self.loss_differential = 0
         elif self.player.value == 21:
-            screen.blit(show_dealer_card, (screen_width * .66, screen_height * .25))
+            screen.blit(show_dealer_card, (screen_width * .45, screen_height * .15))
             black_jack("You win with BlackJack", (screen_width//2, screen_height//2), black)
             time.sleep(4)
             self.just_won = True
@@ -128,7 +128,7 @@ class Play:
             self.loss_differential = 0
             self.play_or_exit()
         elif self.dealer.value == 21:
-            screen.blit(show_dealer_card, (screen_width * .66, screen_height * .25))
+            screen.blit(show_dealer_card, (screen_width * .45, screen_height * .15))
             black_jack("I win with BlackJack", (screen_width//2, screen_height//2), black)
             time.sleep(4)
             self.just_won = False
@@ -171,11 +171,11 @@ class Play:
         player_card_2 = pygame.transform.scale(player_card_2,
                                                tuple(i * 0.1 for i in screen_dimensions[::-1]))
 
-        screen.blit(dealer_card, (screen_width * .33, screen_height * .25))
-        screen.blit(dealer_card_2, (screen_width * .66, screen_height * .25))
+        screen.blit(dealer_card, (screen_width * .35, screen_height * .15))
+        screen.blit(dealer_card_2, (screen_width * .45, screen_height * .15))
 
-        screen.blit(player_card, (screen_width * .45, screen_height * .65))
-        screen.blit(player_card_2, (screen_width * .4, screen_height * .70))
+        screen.blit(player_card, (screen_width * .475, screen_height * .72))
+        screen.blit(player_card_2, (screen_width * .455, screen_height * .75))
         self.blackjack()
 
     def hit(self):
@@ -189,7 +189,7 @@ class Play:
             player_card_3 = pygame.image.load('img/' + self.player.card_img[2] + '.png')
             player_card_3 = pygame.transform.scale(player_card_3,
                                                    tuple(i * 0.1 for i in screen_dimensions[::-1]))
-            screen.blit(player_card_3, (screen_width * .35, screen_height * .75))
+            screen.blit(player_card_3, (screen_width * .435, screen_height * .78))
 
             self.player.value = 0
             self.blackjack()
@@ -200,7 +200,7 @@ class Play:
             player_card_4 = pygame.image.load('img/' + self.player.card_img[3] + '.png')
             player_card_4 = pygame.transform.scale(player_card_4,
                                                    tuple(i * 0.1 for i in screen_dimensions[::-1]))
-            screen.blit(player_card_4, (screen_width * .3, screen_height * .8))
+            screen.blit(player_card_4, (screen_width * .415, screen_height * .81))
             self.player.value = 0
             self.blackjack()
 
@@ -210,7 +210,7 @@ class Play:
             player_card_5 = pygame.image.load('img/' + self.player.card_img[4] + '.png')
             player_card_5 = pygame.transform.scale(player_card_5,
                                                    tuple(i * 0.1 for i in screen_dimensions[::-1]))
-            screen.blit(player_card_5, (screen_width * .25, screen_height * .85))
+            screen.blit(player_card_5, (screen_width * .395, screen_height * .84))
             self.player.value = 0
             self.blackjack()
 
@@ -236,8 +236,8 @@ class Play:
     def stand(self):
         show_dealer_card = pygame.image.load('img/' + self.dealer.card_img[1] + '.png')
         show_dealer_card = pygame.transform.scale(show_dealer_card,
-                                                  tuple(i * 0.15 for i in screen_dimensions[::-1]))
-        screen.blit(show_dealer_card, (screen_width * .66, screen_height * .25))
+                                                  tuple(i * 0.1 for i in screen_dimensions[::-1]))
+        screen.blit(show_dealer_card, (screen_width * .45, screen_height * .15))
         # self.blackjack()
         self.dealer.calc_hand()
         self.player.calc_hand()
@@ -251,7 +251,7 @@ class Play:
                 dealer_card_3 = pygame.image.load('img/' + self.dealer.card_img[2] + '.png')
                 dealer_card_3 = pygame.transform.scale(dealer_card_3,
                                                        tuple(i * 0.1 for i in screen_dimensions[::-1]))
-                screen.blit(dealer_card_3, (screen_width * .8, screen_height * .25))
+                screen.blit(dealer_card_3, (screen_width * .55, screen_height * .15))
                 self.dealer.value = 0
                 self.player.value = 0
                 self.blackjack()
@@ -266,7 +266,7 @@ class Play:
                     dealer_card_4 = pygame.image.load('img/' + self.dealer.card_img[3] + '.png')
                     dealer_card_4 = pygame.transform.scale(dealer_card_4,
                                                            tuple(i * 0.1 for i in screen_dimensions[::-1]))
-                    screen.blit(dealer_card_4, (screen_width * .85, screen_height * .25))
+                    screen.blit(dealer_card_4, (screen_width * .65, screen_height * .15))
                     print('post_round_2 dealer: ' + str(self.dealer.value))
                     self.dealer.value = 0
                     self.player.value = 0
