@@ -54,10 +54,11 @@ def mainroom(first_open):
         screen.blit(backing.mainroom, (0, 0))
         menu_mouse_loc = pygame.mouse.get_pos()
 
-        TO_MENU_BUTTON = Button(sprites.any_to_menu, (.03 * screen_width, .05 * screen_height))
+        # TO_MENU_BUTTON = Button(sprites.any_to_menu, (.03 * screen_width, .05 * screen_height))
         TASK1_BUTTON = Button(sprites.task1, (0.55 * screen_width, .74 * screen_height))
+        RULES_BUTTON = Button(sprites.rules, (0.55 * screen_width, .41 * screen_height))
 
-        for button in [TO_MENU_BUTTON, TASK1_BUTTON]:
+        for button in [TASK1_BUTTON, RULES_BUTTON]:
             button.update(screen)
 
         # Intro Dialogue
@@ -78,12 +79,13 @@ def mainroom(first_open):
             # NEW TEXT BUTTON MENU
             first_open = False
             for x in intro_dialogue:
-                TEXTBOX = Textbox((screen_width * .63, screen_height * .44), x[0])
+                TEXTBOX = Textbox((screen_width * .63, screen_height * .4), x[0])
                 time.sleep(x[1])
                 screen.blit(backing.mainroom, (0, 0))
-                TO_MENU_BUTTON = Button(sprites.any_to_menu, (.03 * screen_width, .05 * screen_height))
+                # TO_MENU_BUTTON = Button(sprites.any_to_menu, (.03 * screen_width, .05 * screen_height))
                 TASK1_BUTTON = Button(sprites.task1, (0.55 * screen_width, .74 * screen_height))
-                for button in [TO_MENU_BUTTON, TASK1_BUTTON]:
+                RULES_BUTTON = Button(sprites.rules, (0.55 * screen_width, .41 * screen_height))
+                for button in [TASK1_BUTTON, RULES_BUTTON]:
                     button.update(screen)
 
         for event in pygame.event.get():
@@ -91,10 +93,12 @@ def mainroom(first_open):
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if TO_MENU_BUTTON.check_input(menu_mouse_loc):
-                    main_menu()
+                # if TO_MENU_BUTTON.check_input(menu_mouse_loc):
+                #     main_menu()
                 if TASK1_BUTTON.check_input(menu_mouse_loc):
                     task1()
+                if RULES_BUTTON.check_input(menu_mouse_loc):
+                    rules()
 
         pygame.display.flip()
         fps_clock.tick(fps)
@@ -238,6 +242,29 @@ def settings():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if TO_MENU_BUTTON.check_input(menu_mouse_loc):
                     main_menu()
+
+        pygame.display.flip()
+        fps_clock.tick(fps)
+
+
+def rules():
+    while True:
+        # Set Backdrop
+        screen.blit(backing.rules, (0, 0))
+        menu_mouse_loc = pygame.mouse.get_pos()
+
+        TO_MAINROOM_BUTTON = Button(sprites.task_to_main, (.03 * screen_width, .05 * screen_height))
+
+        for button in [TO_MAINROOM_BUTTON]:
+            button.update(screen)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if TO_MAINROOM_BUTTON.check_input(menu_mouse_loc):
+                    mainroom(first_open=False)
 
         pygame.display.flip()
         fps_clock.tick(fps)

@@ -8,12 +8,12 @@ from textbox import *
 # https://medium.com/nerd-for-tech/creating-blackjack-game-with-python-80a3b87b1995
 
 def text_objects(text, font):
-    textSurface = font.render(text, True, black, grey)
+    textSurface = font.render(text, True, black, white)
     return textSurface, textSurface.get_rect()
 
 
 def end_text_objects(text, font, color):
-    textSurface = font.render(text, True, color, grey)
+    textSurface = font.render(text, True, color, white)
     return textSurface, textSurface.get_rect()
 
 
@@ -110,7 +110,7 @@ class Play:
 
         if self.player.value == 21 and self.dealer.value == 21:
             screen.blit(show_dealer_card, (screen_width * .45, screen_height * .15))
-            black_jack("We tie with BlackJack", (screen_width//2, screen_height//2), black)
+            black_jack("We tie with BlackJack", (screen_width//2, screen_height*.08), black)
             time.sleep(4)
             self.just_won = False
             self.just_tied = True
@@ -119,7 +119,7 @@ class Play:
             self.loss_differential = 0
         elif self.player.value == 21:
             screen.blit(show_dealer_card, (screen_width * .45, screen_height * .15))
-            black_jack("You win with BlackJack", (screen_width//2, screen_height//2), black)
+            black_jack("You win with BlackJack. Try the box.", (screen_width//2, screen_height*.08), black)
             time.sleep(4)
             self.just_won = True
             self.just_tied = False
@@ -129,7 +129,7 @@ class Play:
             self.play_or_exit()
         elif self.dealer.value == 21:
             screen.blit(show_dealer_card, (screen_width * .45, screen_height * .15))
-            black_jack("I win with BlackJack", (screen_width//2, screen_height//2), black)
+            black_jack("I win with BlackJack! I've changed an entry...", (screen_width//2, screen_height *.08), black)
             time.sleep(4)
             self.just_won = False
             self.just_tied = False
@@ -218,8 +218,7 @@ class Play:
 
 
         if self.player.value > 21:
-            game_finish("You Busted. I win", (screen_width//2, screen_height//2), black)
-            # TEXTBOX = Textbox((screen_width // 2, screen_height // 2), x[0])
+            game_finish("Looks like you busted.  I've changed an entry.", (screen_width//2, screen_height * 0.08), black)
             time.sleep(4)
             self.just_won = False
             self.just_tied = False
@@ -271,14 +270,14 @@ class Play:
                     self.dealer.value = 0
                     self.player.value = 0
                     self.blackjack()
-        time.sleep(4)
+        time.sleep(1)
         self.dealer.value = 0
         self.player.value =0
         self.dealer.calc_hand()
         self.player.calc_hand()
         print(self.player.value, self.dealer.value)
         if self.dealer.value > 21:
-            game_finish("You win I busted", (screen_width//2, screen_height//2), black)
+            game_finish("You win I busted", (screen_width//2, screen_height*.08), black)
             self.loss_differential = 0
             self.just_won = True
             self.just_tied = False
@@ -286,14 +285,14 @@ class Play:
             time.sleep(4)
             self.play_or_exit()
         elif self.player.value > self.dealer.value:
-            game_finish("You Won!", (screen_width//2, screen_height//2), black)
+            game_finish("You Won. Try the box.", (screen_width//2, screen_height*.08), black)
             time.sleep(4)
             self.just_won = True
             self.just_tied = False
             self.just_blackjack = False
             self.play_or_exit()
         elif self.player.value < self.dealer.value:
-            game_finish("I Won!", (screen_width//2, screen_height//2), black)
+            game_finish("I Won! I've changed an entry.", (screen_width//2, screen_height*.08), black)
             self.loss_differential = (self.dealer.value - self.player.value) % code_nums
             self.just_won = False
             self.just_tied = False
@@ -302,7 +301,7 @@ class Play:
             self.play_or_exit()
 
         elif (self.dealer.value == self.player.value) and (self.player.value != 0):
-            game_finish("We tie", (screen_width // 2, screen_height // 2), black)
+            game_finish("We tie", (screen_width // 2, screen_height * .08), black)
             self.loss_differential = 0
             self.just_won = False
             self.just_tied = True

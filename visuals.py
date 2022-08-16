@@ -44,6 +44,10 @@ class Backdrop:
         escape_png = pygame.image.load('visuals/Backdrops/escape.png')
         escape_png = pygame.transform.scale(escape_png, screen_dimensions)
         self.escape = escape_png
+        # Backdrop for rules
+        rules_png = pygame.image.load('visuals/Backdrops/EFH_rules.png')
+        rules_png = pygame.transform.scale(rules_png, screen_dimensions)
+        self.rules = rules_png
 
 
 class Clickable:
@@ -117,3 +121,8 @@ class Clickable:
         textbox_png = pygame.transform.scale(textbox_png,
                                              (screen_dimensions[0] * .4, screen_dimensions[1] * .09))
         self.textbox = textbox_png
+        # Sprite for rules
+        rules_png = pygame.image.load('visuals/Sprites/main_to_rules.png')
+        rules_png = pygame.transform.scale(rules_png,
+                                           (screen_dimensions[0] * .065, screen_dimensions[1] * .12))
+        self.rules = rules_png
